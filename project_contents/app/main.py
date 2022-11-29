@@ -66,17 +66,11 @@ def translate_text(text, from_language, to_language):
     body = [{"text": text}]
     request = requests.post(constructed_url, headers=headers, json=body)
     response = request.json()
-    print(response)
-    print("type(response)", type(response))
-    print("response[0]", response[0])
-    print("response[0]['translations']", response[0]["translations"])
-    print("response[0]['translations'][0]", response[0]["translations"][0])
-    print(
-        "response[0]['translations'][0]['text']", response[0]["translations"][0]["text"]
-    )
 
-    translation = response[0]["translations"][0]["text"]
-    return translation
+    if request.status_code == 200:
+        return response[0]["translations"][0]["text"]
+    else:
+        return "Error: " + str(request.status_code) + " " + response["error"]["message"]
 
 
 # create a function to display the website
