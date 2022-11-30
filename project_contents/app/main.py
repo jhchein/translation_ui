@@ -19,17 +19,15 @@ Wintriness responded to wintriness. The overalls of the workers were white, thei
 
 “And this,” said the Director opening the door, “is the Fertilizing Room.”"""
 
-
-storage_account_name = os.environ.get("storage_account_name")
 storage_account_key = os.environ.get("storage_account_key")
-input_container_name = "translator"
-output_container_name = "translated"
-
+storage_account_name = os.environ.get("storage_account_name")
 input_blob_sas_token = os.environ.get("translator_blob_sas_token")
 output_blob_sas_token = os.environ.get("translator_blob_sas_token")
-
-translator_resource_name = os.environ.get("translator_resource_name")
 translator_resource_key = os.environ.get("translator_resource_key")
+translator_resource_name = os.environ.get("translator_resource_name")
+
+input_container_name = "translator"
+output_container_name = "translated"
 
 
 def translate_text(text, from_language, to_language):
