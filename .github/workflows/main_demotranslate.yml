@@ -60,27 +60,4 @@ jobs:
         with:
           app-name: 'demotranslate'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_CDCFF9DA9AF74A1F97A1BF01E7E296AC }}
-          app-settings-json: |
-            [
-              {
-                "name": "storage_account_key",
-                "value": "${{ secrets.STORAGE_ACCOUNT_KEY}}"
-              },
-              {
-                "name": "storage_account_name",
-                "value": "${{ secrets.STORAGE_ACCOUNT_NAME}}"
-              },
-              {
-                "name": "TRANSLATOR_BLOB_SAS_TOKEN",
-                "value": "${{ secrets.translator_blob_sas_token}}"
-              },
-              {
-                "name": "translator_resource_key",
-                "value": "${{ secrets.TRANSLATOR_RESOURCE_KEY}}"
-              },
-              {
-                "name": "translator_resource_name",
-                "value": "${{ secrets.TRANSLATOR_RESOURCE_NAME}}"
-              },
-            ]
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_D228176D177F43178AD369327C3FD6FC }}
