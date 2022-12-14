@@ -10,6 +10,7 @@ from datetime import datetime
 import requests
 import streamlit as st
 from azure.storage.blob import BlobServiceClient, __version__
+import pyperclip
 
 sample_text = """A SQUAT grey building of only thirty-four stories. Over the main entrance the words, CENTRAL LONDON HATCHERY AND CONDITIONING CENTRE, and, in a shield, the World State’s motto, COMMUNITY, IDENTITY, STABILITY.
 
@@ -99,31 +100,14 @@ def main():
             "https://docs.microsoft.com/en-us/azure/cognitive-services/translator/quickstart-python-translate"
         )
 
-        # create two text boxes for the input and output text side by side, both with a height of 300px
-        input_text, output_text = st.columns(2)
-
-        # create a text area for the input text with a height of 300px
-        with input_text:
-            st.header("Source Text")
-            input_text = st.text_area(
-                "",
-                sample_text,
-                height=300,
-            )
-            input_text = input_text.strip()
-
-        # create a text box for the output text
-        with output_text:
-            st.header("Translated Text")
-            output_text = st.empty()
-            output_text.text_area("Translated text will appear here", height=300)
+        translation = ""
 
         # create two dropdowns for the input and output language side by side
         input_language, output_language = st.columns(2)
 
         # create a dropdown for the input language
         with input_language:
-            st.header("Input Language")
+            st.header("Source Text")
             # create a dropdown for the input language
 
             # create a drop down menu for the user to select the language to translate from
@@ -149,7 +133,7 @@ def main():
 
         # create a dropdown for the output language
         with output_language:
-            st.header("Output Language")
+            st.header("Target Text")
             # create a drop down menu for the user to select the language to translate to
             to_language = st.selectbox(
                 "Select language to translate to",
@@ -170,13 +154,35 @@ def main():
                 ),
             )
 
+        # create two text boxes for the input and output text side by side, both with a height of 300px
+        input_text, output_text = st.columns(2)
+
+        # create a text area for the input text with a height of 300px
+        with input_text:
+            input_text = st.text_area(
+                "",
+                sample_text,
+                height=300,
+            )
+            input_text_str = input_text.strip()
+
+        # create a text box for the output text
+        with output_text:
+            # st.header("Translated Text")
+            output_text = st.empty()
+            output_text.text_area(label="Translated text will appear here", height=300)
+
+        translate_button, copy_button = st.columns(2)
         # create a button for the user to click to translate the text
-        if st.button("Translate"):
-            translation = translate_text(input_text, from_language, to_language)
+        if translate_button.button("Translate"):
+            translation = translate_text(input_text_str, from_language, to_language)
             # update the output_text box with the translation string
             output_text.text_area(
                 "Translated text", translation, height=300, max_chars=None
             )
+
+        if copy_button.button("Copy"):
+            pyperclip.copy(translation)
 
         # add a bit space between the two tabs
         st.write("")
