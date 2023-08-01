@@ -16,7 +16,8 @@ env:
   REGISTRY_NAME: heinousacr
   REPOSITORY_NAME: demotranslate-ui
   RESOURCE_GROUP: translation-ui
-  CONTAINER_APP_NAME: demotranslate-ui
+  # CONTAINER_APP_NAME: demotranslate-ui
+  WEB_APP_NAME: demotranslate-ui
   KEYVAULT_NAME: translation-ui-kv
 
 jobs:
@@ -69,10 +70,15 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy to containerapp
-        uses: azure/CLI@v1
+      # - name: Deploy to containerapp
+      #   uses: azure/CLI@v1
+      #   with:
+      #     inlineScript: |
+      #       az config set extension.use_dynamic_install=yes_without_prompt
+      #       az containerapp registry set -n ${{env.CONTAINER_APP_NAME}} -g ${{env.RESOURCE_GROUP}} --server ${{env.REGISTRY_NAME}}.azurecr.io --username  ${{ env.registry_username }} --password ${{ env.registry_password }}
+      #       az containerapp update -n ${{env.CONTAINER_APP_NAME}} -g ${{env.RESOURCE_GROUP}} --image ${{env.REGISTRY_NAME}}.azurecr.io/${{env.REPOSITORY_NAME}}:${{ github.sha }}
+
+      - uses: azure/webapps-deploy@v2
         with:
-          inlineScript: |
-            az config set extension.use_dynamic_install=yes_without_prompt
-            az containerapp registry set -n ${{env.CONTAINER_APP_NAME}} -g ${{env.RESOURCE_GROUP}} --server ${{env.REGISTRY_NAME}}.azurecr.io --username  ${{ env.registry_username }} --password ${{ env.registry_password }}
-            az containerapp update -n ${{env.CONTAINER_APP_NAME}} -g ${{env.RESOURCE_GROUP}} --image ${{env.REGISTRY_NAME}}.azurecr.io/${{env.REPOSITORY_NAME}}:${{ github.sha }}
+          app-name: "${{env.WEB_APP_NAME}}"
+          images: "${{env.REGISTRY_NAME}}.azurecr.io/${{env.REPOSITORY_NAME}}:${{ github.sha }}"
