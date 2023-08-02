@@ -2,6 +2,10 @@
 
 A proof of concept user interface for Text, Document, and Speech translation.
 
+- [x] Fix requirements (streamlit)
+- do i need the conda env at all?
+- 
+
 - Infra
 
   - Resource Group
@@ -9,6 +13,7 @@ A proof of concept user interface for Text, Document, and Speech translation.
   - Translator Resource
   - ACR
   - Key vault
+  - web app (B1)
 
 - Create a service principal:
 
