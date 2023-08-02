@@ -2,9 +2,6 @@
 
 A proof of concept user interface for Text, Document, and Speech translation.
 
-- [x] Fix requirements (streamlit)
-- do i need the conda env at all?
-- 
 
 - Infra
 
