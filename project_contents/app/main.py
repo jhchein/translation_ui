@@ -7,10 +7,16 @@ import time
 import uuid
 from datetime import datetime
 
+import pyperclip
 import requests
 import streamlit as st
-from azure.storage.blob import BlobServiceClient, __version__
-import pyperclip
+from azure.storage.blob import BlobServiceClient
+
+import logging
+
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=logging.INFO)
+logging.info("Starting up...")
 
 sample_text = """A SQUAT grey building of only thirty-four stories. Over the main entrance the words, CENTRAL LONDON HATCHERY AND CONDITIONING CENTRE, and, in a shield, the World State’s motto, COMMUNITY, IDENTITY, STABILITY.
 
@@ -53,7 +59,7 @@ def translate_text(text, from_language, to_language):
         params = f"&from={from_language}&to={to_language}"
 
     constructed_url = endpoint + path + params
-    print("constructed_url", constructed_url)
+    logging.info("constructed_url: %s", constructed_url)
 
     headers = {
         "Ocp-Apim-Subscription-Key": translator_resource_key,
@@ -67,9 +73,15 @@ def translate_text(text, from_language, to_language):
     response = request.json()
 
     if request.status_code == 200:
-        return response[0]["translations"][0]["text"]
+        translation = response[0]["translations"][0]["text"]
+        logging.info("Translated text: %s", translation)
+        return translation
     else:
-        return "Error: " + str(request.status_code) + " " + response["error"]["message"]
+        error_message = (
+            "Error: " + str(request.status_code) + " " + response["error"]["message"]
+        )
+        logging.error(error_message)
+        return error_message
 
 
 # create a function to display the website
@@ -91,7 +103,6 @@ def main():
 
     # toggle the translation tab
     if app_mode == "Translate text":
-
         st.title("Text Translator")
         st.write(
             "This is a sample website for the Microsoft Cognitive Services Text Translator API"
@@ -191,7 +202,7 @@ def main():
         st.write("")
 
         st.markdown(
-            """Developed by Hendrik Hein [![GitHub](https://img.shields.io/badge/GitHub-black?style=flat&logo=github)](https://github.com/jhchein) [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/hendrik-hein-a3921b18/), using [Github Copilot](https://github.com/features/copilot/), the [Streamlit](https://streamlit.io/) framework and the [Azure Cognitive Services Translator API](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/quickstart-python-translate)"""
+            """Developed by JHC Hein [![GitHub](https://img.shields.io/badge/GitHub-black?style=flat&logo=github)](https://github.com/jhchein) [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/hendrik-hein-a3921b18/), using [Github Copilot](https://github.com/features/copilot/), the [Streamlit](https://streamlit.io/) framework and the [Azure Cognitive Services Translator API](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/quickstart-python-translate)"""
         )
 
     # toggle the document translation tab
@@ -380,7 +391,7 @@ def main():
         st.markdown("<br><br><br><br>", unsafe_allow_html=True)
 
         st.markdown(
-            """Developed by Hendrik Hein [![GitHub](https://img.shields.io/badge/GitHub-black?style=flat&logo=github)](https://github.com/jhchein) [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/hendrik-hein-a3921b18/), using [Github Copilot](https://github.com/features/copilot/), the [Streamlit](https://streamlit.io/) framework and the [Azure Cognitive Services Translator API](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/quickstart-python-translate)"""
+            """Developed by JHC Hein [![GitHub](https://img.shields.io/badge/GitHub-black?style=flat&logo=github)](https://github.com/jhchein) [![LinkedIn](https://img.shields.io/badge/LinkedIn-blue?style=flat&logo=linkedin)](https://www.linkedin.com/in/hendrik-hein-a3921b18/), using [Github Copilot](https://github.com/features/copilot/), the [Streamlit](https://streamlit.io/) framework and the [Azure Cognitive Services Translator API](https://docs.microsoft.com/en-us/azure/cognitive-services/translator/quickstart-python-translate)"""
         )
 
     # toggle the speech translation tab
