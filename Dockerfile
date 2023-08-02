@@ -1,5 +1,3 @@
-ARG APP_FOLDER=/opt/demotranslate
-
 # Use the mambaorg/micromamba image with version 0.15.3 as the base image
 FROM mambaorg/micromamba:latest
 
@@ -20,11 +18,11 @@ RUN apt-get update && \
     rm -rf /var/lib/apt/lists/* 
 
 # Create a directory for the application and set permissions
-RUN mkdir -p ${APP_FOLDER} && \
-    chmod -R 777 ${APP_FOLDER}
+RUN mkdir -p /opt/demotranslate && \
+    chmod -R 777 /opt/demotranslate
 
 # Set the working directory to the application directory and switch to the micromamba user
-WORKDIR ${APP_FOLDER}
+WORKDIR /opt/demotranslate
 USER micromamba
 
 # Copy the environment.yml file and install the dependencies using micromamba
