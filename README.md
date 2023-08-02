@@ -1,37 +1,35 @@
 # translation_ui
 
+[!assets/UI.jpg]
+
 A proof of concept user interface for Text, Document, and Speech translation.
 
+# ToDos
 
-- Infra
+## Infra Deployment
 
-  - Resource Group
-  - Storage account
-  - Translator Resource
-  - ACR
-  - Key vault
-  - web app (B1)
+Use Bicep to deploy or update Resource Group, Storage account, Translator Resource, ACR, Key vault, Web App (SKU B1). Use MSI to allow access to resources. Set environment variables in Web App.
 
-- Create a service principal:
+Create a service principal for Web App Deployment.
 
-  ```CLI
-  az ad sp create-for-rbac --name "myApp" --role contributor \
-  --scopes /subscriptions/{subscription-id}/resourceGroups/{resource-group} \
-  --sdk-auth
-  ```
+```CLI
+az ad sp create-for-rbac --name "myApp" --role contributor \
+--scopes /subscriptions/{subscription-id}/resourceGroups/{resource-group} \
+--sdk-auth
+```
 
-  and copy the JSON output similar to this:
+and copy the JSON output similar to this:
 
-  ```JSON
-  {
-    "clientId": "<GUID>",
-    "clientSecret": "<STRING>",
-    "subscriptionId": "<GUID>",
-    "tenantId": "<GUID>",
-    "resourceManagerEndpointUrl": "<URL>"
-    (...)
-  }
-  ```
+```JSON
+{
+  "clientId": "<GUID>",
+  "clientSecret": "<STRING>",
+  "subscriptionId": "<GUID>",
+  "tenantId": "<GUID>",
+  "resourceManagerEndpointUrl": "<URL>"
+  (...)
+}
+```
 
 - set the github secrets
   - store credentials in key vault
@@ -44,8 +42,3 @@ A proof of concept user interface for Text, Document, and Speech translation.
   - registry_username
   - registry_password
   - AZURE_CREDENTIALS
-- ~~Build the docker image~~
-- ~~Push to a docker registry (e.g. ACR)~~
-- Deploy a container app using this image
-  - allow ingress
-  - map to port 80
