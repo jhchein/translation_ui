@@ -1,6 +1,6 @@
 # translation_ui
 
-[!assets/UI.jpg]
+![UI](assets/UI.jpg)
 
 A proof of concept user interface for Text, Document, and Speech translation.
 
@@ -8,7 +8,7 @@ A proof of concept user interface for Text, Document, and Speech translation.
 
 ## Infra Deployment
 
-Use Bicep to deploy or update Resource Group, Storage account, Translator Resource, ACR, Key vault, Web App (SKU B1). Use MSI to allow access to resources. Set environment variables in Web App.
+Use Bicep to deploy or update Resource Group, Storage account, Translator Resource, ACR, Key vault, Web App (SKU B1). Use MSI to allow access to resources. Set environment variables in Web App. Make use of deployment slots (dev, prod).
 
 Create a service principal for Web App Deployment.
 
