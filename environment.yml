@@ -9,3 +9,4 @@ dependencies:
    - streamlit
    - azure-storage-blob
    - azure-identity
+   - pyperclip

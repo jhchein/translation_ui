@@ -1,4 +1,4 @@
-streamlit==1.11.*
-azure-storage-blob==12.14.*
-azure-identity==1.12.*
-pyperclip
+streamlit==1.25.*
+azure-storage-blob==12.17.*
+azure-identity==1.13.*
+pyperclip==1.8.*
