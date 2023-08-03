@@ -1,18 +1,23 @@
-# translation_ui
+# translation ui (wip) 
 
-A proof of concept user interface for Text, Document, and Speech translation.
+A proof of concept user interface for Text, Document, and Speech translation (still missing). 
 
+## current state
 
-- Infra
+The app works, but needs manual creation of Azure resources and manual setting of environment secrets.
 
+## ToDos
+
+- Add speech translation
+- Infra deployment
   - Resource Group
   - Storage account
   - Translator Resource
   - ACR
   - Key vault
   - web app (B1)
-
-- Create a service principal:
+- Authentication via MSI or Service Pricincipal
+  - Create a service principal
 
   ```CLI
   az ad sp create-for-rbac --name "myApp" --role contributor \
@@ -33,19 +38,13 @@ A proof of concept user interface for Text, Document, and Speech translation.
   }
   ```
 
-- set the github secrets
-  - store credentials in key vault
+  - Automatically set the github secrets and or store credentials in key vault
     - registry username and password
-  - storage_account_key
-  - storage_account_name
-  - translator_blob_sas_token
-  - translator_resource_key
-  - translator_resource_name
-  - registry_username
-  - registry_password
-  - AZURE_CREDENTIALS
-- ~~Build the docker image~~
-- ~~Push to a docker registry (e.g. ACR)~~
-- Deploy a container app using this image
-  - allow ingress
-  - map to port 80
+    - storage_account_key
+    - storage_account_name
+    - translator_blob_sas_token
+    - translator_resource_key
+    - translator_resource_name
+    - registry_username
+    - registry_password
+    - AZURE_CREDENTIALS
