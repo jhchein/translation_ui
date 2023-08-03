@@ -1,14 +1,18 @@
-# translation_ui
-
-![UI](assets/UI.jpg)
+# translation UI (Work in progress)
 
 A proof of concept user interface for Text, Document, and Speech translation.
 
-# ToDos
+![UI](assets/UI.jpg)
 
-## Infra Deployment
+## current state
 
-Use Bicep to deploy or update Resource Group, Storage account, Translator Resource, ACR, Key vault, Web App (SKU B1). Use MSI to allow access to resources. Set environment variables in Web App. Make use of deployment slots (dev, prod).
+The app works, but needs manual creation of Azure resources and manual setting of environment secrets.
+
+## ToDos
+
+### Infra Deployment
+
+Use Bicep to deploy or update Resource Group, Storage account, Translator Resource, ACR, Key vault, Web App (SKU B1). Use MSI or service principal for access to resources. Set environment variables. Make use of deployment slots (dev, prod).
 
 Create a service principal for Web App Deployment.
 
@@ -31,9 +35,9 @@ and copy the JSON output similar to this:
 }
 ```
 
-- set the github secrets
+- Automatically set the github secrets and or store credentials in key vault
+  - set the github secrets
   - store credentials in key vault
-    - registry username and password
   - storage_account_key
   - storage_account_name
   - translator_blob_sas_token
