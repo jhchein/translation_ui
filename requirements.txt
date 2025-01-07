@@ -1,5 +1,5 @@
-streamlit==1.13.*
+streamlit==1.30.*
 azure-storage-blob==12.17.*
-azure-identity==1.13.*
+azure-identity==1.16.*
 pyperclip==1.8.*
 altair<5
